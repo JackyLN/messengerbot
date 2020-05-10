@@ -1,16 +1,17 @@
 'use strict';
 
 // Imports dependencies and set up http server
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-
 const
   request = require('request'),
   express = require('express'),
   bodyParser = require('body-parser'),
+  dotenv = require('dotenv'),
   app = express().use(bodyParser.json()); // creates express http server
 
-  var logger = require('./winston');
+dotenv.config();
+var logger = require('./winston');
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
