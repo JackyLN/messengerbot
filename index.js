@@ -6,12 +6,18 @@ const
   express = require('express'),
   bodyParser = require('body-parser'),
   dotenv = require('dotenv'),
+  path = require('path'),
   app = express().use(bodyParser.json()); // creates express http server
 
 dotenv.config();
 var logger = require('./winston');
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+
+//app policy
+app.get('/policy', function (req, res) {
+  res.sendFile(path.join(__dirname + '/policy.html'));
+})
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -181,3 +187,5 @@ app.listen(process.env.PORT || 1337, () => {
   logger.info('webhook is listening')
   console.log('webhook is listening')}
 );
+
+
